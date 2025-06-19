@@ -1,0 +1,11 @@
+﻿@model Ecommerce.Models.Order
+
+<h2>Siparişiniz Alındı</h2>
+<p>Sipariş Numaranız: @Model.Id</p>
+<p>Toplam Tutar: @Model.Total ₺</p>
+<p>Durum: @Model.Status</p>
+
+<form asp-action="ProceedToPayment" method="post">
+    <input type="hidden" name="orderId" value="@Model.Id" />
+    <button type="submit" class="btn btn-primary">Ödemeye Geç</button>
+</form>

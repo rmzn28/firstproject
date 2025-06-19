@@ -1,0 +1,31 @@
+﻿@model Ecommerce.Models.Order
+
+<h2>Ödeme Sayfası</h2>
+<p>Sipariş Numaranız: @Model.Id</p>
+<p>Toplam: @Model.Total ₺</p>
+<p>Durum: @Model.Status</p>
+
+<form asp-action="CompletePayment" method="post">
+    <div class="row">
+        @foreach (var item in Model.Items)
+        {
+            <div class="col-md-4">
+                <div class="card h-100">
+                    <img src="@item.Product.ImageUrl" class="card-img-top" style="height: 250px; object-fit: cover;" alt="@item.Product.Name" />
+                    <div class="card-body">
+                        <h5 class="card-title">@item.Product.Name</h5>
+                        <p class="card-text text-muted">@item.Product.Category?.Name</p>
+                        <p class="fw-bold">@item.Product.Price ₺</p>
+                        <p>Adet: @item.Quantity</p>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+    <input type="hidden" name="orderId" value="@Model.Id" />
+
+    <div class="d-flex justify-content-end mt-3">
+        <button class="btn btn-success">Ödemeyi Tamamla</button>
+    </div>
+</form>

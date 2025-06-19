@@ -1,0 +1,16 @@
+﻿@model Ecommerce.Models.Order
+
+<h2>Ödeme Başarıyla Tamamlandı</h2>
+<p>Sipariş Numaranız: @Model.Id</p>
+<p>Durum: @Model.Status</p>
+<p>Toplam Tutar: @Model.Total ₺</p>
+
+<h3>Ürünler:</h3>
+<ul>
+    @foreach (var item in Model.Items)
+    {
+        <li>@item.Product.Name - @item.Quantity adet</li>
+    }
+</ul>
+
+<a href="/Home/Index" class="btn btn-secondary">Ana Sayfaya Dön</a>

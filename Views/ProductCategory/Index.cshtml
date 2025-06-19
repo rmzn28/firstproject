@@ -1,0 +1,49 @@
+﻿@model List<Ecommerce.Models.Product>
+
+@{
+    ViewBag.Title = "Kategori";
+    string? selectedCategoryId = Context.Request.Query["categoryId"].ToString();
+}
+
+<h2 class="my-4 text-center">Kategoriler</h2>
+
+<form method="get" class="d-flex justify-content-center mb-4 gap-2">
+    <select name="categoryId" class="form-select w-25">
+        <option value="">Tüm Kategoriler</option>
+        @foreach (var cat in ViewBag.Categories)
+        {
+            if (selectedCategoryId == cat.Id.ToString())
+            {
+                <option value="@cat.Id" selected="selected">@cat.Name</option>
+            }
+            else
+            {
+                <option value="@cat.Id">@cat.Name</option>
+            }
+        }
+    </select>
+    <button type="submit" class="btn btn-primary">Filtrele</button>
+</form>
+
+<div class="container">
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        @foreach (var product in Model)
+        {
+            <div class="col">
+                <div class="card h-100">
+                    <img src="@product.ImageUrl" class="card-img-top" style="height: 250px; object-fit: cover;" alt="@product.Name" />
+                    <div class="card-body">
+                        <h5 class="card-title">@product.Name</h5>
+                        <p class="card-text text-muted">@product.Category?.Name</p>
+                        <p class="fw-bold">@product.Price TL</p>
+                        <p>@product.Description</p>
+                        <form method="post" action="/Cart/Add" class="d-inline">
+                            <input type="hidden" name="productId" value="@product.Id" />
+                            <button type="submit" class="btn btn-success btn-sm">Sepete Ekle</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
